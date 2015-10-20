@@ -1,0 +1,69 @@
+<div class="x-portal-widget-match-results" id="{{blockUUID}}">
+	<section class="x-portal-competition-matches">
+		<header>Termínová listina</header>
+		<div class="portal-schedule-data portal-schedule-hidden">
+		</div>	
+	</section>
+</div>
+<script>
+$(function() {
+	if ('{{cid}}'.length > 0) {
+		$.get('/competition/matches-all/{{cid}}', function(data) {
+				function formatDate(d) {
+					return d.substr(6,2) + '.' +d.substr(4,2) + '.' + d.substr(0,4);
+				}
+
+				var tblContainer = $('#{{blockUUID}}').find('.portal-schedule-data');
+
+				$('#{{blockUUID}}').find('header').bind('click', function() {
+					tblContainer.toggleClass('portal-schedule-hidden');
+				});
+				tblContainer.empty();
+
+				var sRounds = Object.keys(data).sort(function(a,b) {
+					return parseInt(a)-parseInt(b);
+				});
+				var lastDate = null;
+				var position = 0;
+				for (var r in sRounds) {
+					var round = data[sRounds[r]];
+
+					tblContainer.append('<div class="portal-schedule-round">'+sRounds[r]+'</div>');
+					for (var m in round) {
+						var match = round[m];
+
+						if (match.finished) {
+							tblContainer.append(
+								'<div class="portal-schedule-row">' +
+									'<div class="portal-schedule-dt">' +
+										'<div class="portal-schedule-date">' + formatDate(match.matchDate) + '</div>' +
+										'<div class="portal-schedule-time">' + (match.matchTime || '-') + '</div>' +
+									'</div>' +
+									'<div class="portal-schedule-match">' +
+									'<div class="portal-schedule-home">' + match.homeName + '</div>' +
+									'<div class="portal-schedule-score"><div class="portal-schedule-score-home">'+(match.fullTimeScoreHome || '_')+'</div>' +
+										'<div class="portal-schedule-score-hyphen">:</div>' +
+										'<div class="portal-schedule-score-away">'+(match.fullTimeScoreAway || '_')+'</div>'+
+										'<div class="portal-schedule-score-balls">'+(match.additionalScore || '')+'</div></div>' +
+										'<div class="portal-schedule-away">'+match.guestName+'</div></div></div>');
+						} else {
+							tblContainer.append(
+								'<div class="portal-schedule-row">' +
+									'<div class="portal-schedule-dt">' +
+										'<div class="portal-schedule-date">' + formatDate(match.matchDate) + '</div>' +
+										'<div class="portal-schedule-time">' + (match.matchTime || '-') + '</div>' +
+									'</div>' +
+									'<div class="portal-schedule-match">' +
+									'<div class="portal-schedule-home">' + match.homeName + '</div>' +
+									'<div class="portal-schedule-score"><div class="portal-schedule-score-home">'+(match.fullTimeScoreHome || '-')+'</div>' +
+										'<div class="portal-schedule-score-hyphen">:</div>' +
+										'<div class="portal-schedule-score-away">'+(match.fullTimeScoreAway || '-')+'</div>'+
+										'<div class="portal-schedule-score-balls">'+(match.additionalScore || '')+'</div></div>' +
+										'<div class="portal-schedule-away">'+match.guestName+'</div></div></div>');
+						}
+					}
+				}
+		});
+	}
+});
+</script>

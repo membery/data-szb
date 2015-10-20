@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>SZH</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	<meta name="copyright" content="Unionsoft" />
+	<meta name="author" content="" />
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link rel="stylesheet" type="text/css" href="/portal/css/standalone.css">
+	<link rel="stylesheet" type="text/css" href="/portal/css/portal.css">
+	<link rel="stylesheet" type="text/css" href="/portal/css/font-awesome.min.css">
+	<link rel="icon" href="/portal/img/faviconSZH.ico" type="image/x-icon">
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-55088225-4', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
+</head>
+
+<body>
+	<div id="portal-main-container">
+		<div id="portal-header-container">
+			<header id="portal-main-header">
+				<div id="mobile-menu-toggler">
+					<a href="" class="toogle-menu" >
+						<i class="fa fa-align-justify"></i>
+					</a>
+				</div>
+				<h1>Slovenský Zväz Hádzanej</h1>
+				<a href="/"><img class="portal-logo" src="/portal/img/portal-logo.png" alt="logo" title="SLOVENSKÝ ZVÄZ HÁDZANEJ" /></a>
+				<div id="portal-main-header-logo-area">
+					<a href="http://www.eurohandball.com"><img src="/portal/img/logo_ehf.png" alt="logo" title="EHF" width="70px" height="70px" /></a>
+					<a href="https://www.olympic.sk"><img src="/portal/img/logo_sk_ol_vybor.png" alt="logo" title="Slovenský Olympijský Výbor" width="70px" height="70px" style="margin-left: 1px;"/></a>
+					<a href="http://www.ihf.info"><img src="/portal/img/logo_ihf.png" alt="logo" title="IHF" width="70px" height="70px" /></a>
+				</div>
+			</header>
+		</div>
+		<div id="portal-menu-panel-container">
+			{% block menu %}
+				<div id="portal-menu-panel">
+					{%for k in menu %}
+						<div class="portal-menu-entry"><a href="/article/{{k.aid}}">{{k.name}}</a>
+							<div class="portal-sub-menu">
+								{% for s in k.subElements %}
+									<div><a href="/article/{{s.aid}}">{{s.name}}</a></div>
+								{% endfor %}
+							</div>
+						</div>
+					{% endfor %}
+					<div class="menu-login-container">
+						<a class="menu-login" href="https://www.facebook.com/SlovenskyZvazHadzanej"><i class="fa fa-facebook"></i></a>
+					</div>
+					<div class="menu-login-container">
+						<a class="menu-login" href="https://www.youtube.com/user/SlovakHandball"><i class="fa fa-youtube-play"></i></a>
+					</div>
+					<div class="menu-login-container">
+						<a class="menu-login" href="https://szh.unionsoft.sk/">VSTUP DO SZH</a>				
+					</div>
+				</div>
+			{% endblock menu %}
+		</div>
+		<div id="portal-content-container">
+			<div id="portal-main-content">
+				{% for widget in article.data %}
+					<article class="portal-article {{ widget.meta.type }} portal-article-{{ widget.meta.name }}">
+						{% set templatePath = "widgets/" + widget.meta.type + ".widget" %}
+						{% include templatePath with widget only %}
+					</article>
+				{% endfor %}
+			</div>
+			<div id="portal-side-content">
+				<section class="portal-side-panel-logos">
+					<div class="portal-side-panel-logos-items" style="width:100%; height:250px">
+						<article class="item">
+							<a href="http://www.seha-liga.com"><img src="/portal/img/logo_seha.png" height="251px" align="middle"></img></a>
+						</article>
+						<article class="item">
+							<a href="/article/547f4b6d5c6dd9c361bad9d2"><img src="/portal/img/extraliga251.jpg" height="251px" align="middle"></img></a>
+						</article>
+						<article class="item">
+							<a href="/article/548014d2f7f2b0332e3bbfec"><img src="/portal/img/logo_whil.jpg" height="251px" align="middle"></img></a>
+						</article>
+						<article class="item">
+							<a href="http://www.minihandball.sk"><img src="/portal/img/minihandball.jpg" height="251px" align="middle"></img></a>
+						</article>
+					</div>
+					<div class="portal-side-panel-logos-sep"></div>
+					<div style="width:100%; height:250px">
+						<article>
+							<a href=""><img src="/portal/img/sk_sien_slavy.png" height="251px" align="middle"></img></a>
+						</article>
+					</div>
+				</section>
+				<section class="portal-side-panel x-portal-competition-results">
+					<header>Tabuľka</header>
+					<div style="width:100%;"><select style="width:100%; margin-top: 5px; margin-bottom: 5px; outline: 0;" class="x-portal-competition-selector"><option>Extraliga - Muži</option></select></div>
+					<table style="width:100%; padding-top: 1px;" class="rowtable">
+					</table>
+				</section>
+				<section class="portal-side-panel">
+					<div style="text-align: center;"><a href="http://www.minedu.sk/register-poskytnutych-dotacii/"><img src="/portal/img/mskolsr.png"></img></a></div>
+					<div style="text-align: center; padding-top: 5px;">ROK 2015: 1 010 500,- EUR</div>
+				</section>
+				<section class="portal-side-panel partneri">
+					<header>Partneri</header>
+					<article>
+						<div style="text-align: center; padding-top: 5px;">Reklamný partner ženskej reprezentácie<br>Reklamný partner mužskej reprezentácie</div>
+						<div style="text-align: center; padding-top: 5px; padding-left: 10px; height: 200px; vertical-align: middle; display: table-cell;"><a href="http://www.retic.sk"><img style="" src="/portal/img/retic.png"></a></div>
+					</article>
+					<article>
+						<div style="text-align: center; padding-top: 5px;">Reklamný partner ženskej reprezentácie<br>Reklamný partner mužskej reprezentácie</div>
+						<div style="text-align: center; padding-top: 5px; padding-left: 10px; height: 200px; vertical-align: middle; display: table-cell;"><a href="http://www.strabag.cz"><img style="" src="/portal/img/strabag.jpg"></a></div>
+					</article>
+					<article>
+						<div style="text-align: center; padding-top: 5px;">Reklamný partner ženskej reprezentácie</div>
+						<div style="text-align: center; padding-top: 5px; padding-left: 10px; height: 200px; vertical-align: middle; display: table-cell;"><a href="http://emotion.sk/#/vitajte/"><img style="" src="/portal/img/emotion.jpg"></a></div>
+					</article>
+					<article>
+						<div style="text-align: center; padding-top: 5px;">Reklamný partner</div>
+						<div style="text-align: center; padding-top: 5px; padding-left: 10px; height: 200px; vertical-align: middle; display: table-cell;"><a href="http://www.adidas.sk "><img style="" src="/portal/img/logo-adidas.png"></a></div>
+					</article>
+					<article>
+						<div style="text-align: center; padding-top: 5px;">Oficiálny partner Extraligy a WHIL</div>
+						<div style="text-align: center; padding-top: 5px; padding-left: 10px; height: 200px; vertical-align: middle; display: table-cell;"><a href="http://www.molten.sk"><img style="" src="/portal/img/molten.jpg"></a></div>
+					</article>
+					<article>
+						<div style="text-align: center; padding-top: 5px;">Mediálny partner</div>
+						<div style="text-align: center; padding-top: 5px; padding-left: 10px; height: 200px; vertical-align: middle; display: table-cell;"><a href="http://sport.aktuality.sk"><img style="" src="/portal/img/logo-sport.png"></a></div>
+					</article>
+					<article>
+						<div style="text-align: center; padding-top: 5px;">Mediálny partner</div>
+						<div style="text-align: center; padding-top: 5px; padding-left: 10px; height: 200px; vertical-align: middle; display: table-cell;"><a href="http://www.digisport.sk/#inscore_ifheight_xdc_5542"><img style="" src="/portal/img/digi_sport.jpg"></a></div>
+					</article>
+					<article>
+						<div style="text-align: center; padding-top: 5px;">Mediálny partner</div>
+						<div style="text-align: center; padding-top: 5px; padding-left: 10px; height: 200px; vertical-align: middle; display: table-cell;"><a href="http://www.sita.sk"><img style="" src="/portal/img/sita.png"></a></div>
+					</article>
+					<article>
+						<div style="text-align: center; padding-top: 5px;">Mediálny partner</div>
+						<div style="text-align: center; padding-top: 5px; padding-left: 10px; height: 200px; vertical-align: middle; display: table-cell;"><a href="http://www.radiosport.sk"><img style="" src="/portal/img/radio_sport.jpg"></a></div>
+					</article>
+					<article>
+						<div style="text-align: center; padding-top: 5px;">Mediálny partner</div>
+						<div style="text-align: center; padding-top: 5px; padding-left: 10px; height: 200px; vertical-align: middle; display: table-cell;"><a href="http://www.huste.tv"><img style="" src="/portal/img/huste_tv.jpg"></a></div>
+					</article>
+				</section>
+				<section class="portal-side-panel">
+					<iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2FSlovenskyZvazHadzanej&amp;width=300px&amp;height=590&amp;colorscheme=light&amp;show_faces=true&amp;header=true&amp;stream=true&amp;show_border=false" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:300pxpx; height:590px;" allowTransparency="true"></iframe>
+				</section>
+			</div>
+		</div>
+	</div>
+	<div id="footer-container">
+		<div id="portal-club-logos-panel-container">
+			<div id="portal-club-logos-panel">
+				<div class="portal-club-logo portal-club-logo-2" data-url="http://www.sskpresov.sk/"></div>
+				<div class="portal-club-logo portal-club-logo-3" data-url="http://www.sporta.sk/"></div>
+				<div class="portal-club-logo portal-club-logo-4" data-url="http://www.tjstart.sk/"></div>
+				<div class="portal-club-logo portal-club-logo-5" data-url="http://www.hkslavia.sk/"></div>
+				<div class="portal-club-logo portal-club-logo-6" data-url="http://www.salahandball.sk/"></div>
+				<div class="portal-club-logo portal-club-logo-7" data-url="http://www.hkmsalahandball.sk/"></div>
+				<div class="portal-club-logo portal-club-logo-8" data-url="http://www.hoslovanmodra.sk/"></div>
+				<div class="portal-club-logo portal-club-logo-9" data-url="http://hadzanapezinok.sk/"></div>
+				<div class="portal-club-logo portal-club-logo-10" data-url="http://www.skpbratislava.sk/"></div>
+				<div class="portal-club-logo portal-club-logo-11" data-url="http://www.iuventa-zhk.chemkostavarena.sk/?stranka=portal_marmasoft"></div>
+				<div class="portal-club-logo portal-club-logo-12" data-url="http://hktopolcany.sk/"></div>
+				<div class="portal-club-logo portal-club-logo-13" data-url="http://www.msk.sk/"></div>
+				<div class="portal-club-logo portal-club-logo-14" data-url="http://www.tatranpresov.sk/"></div>
+			</div>
+		</div>
+		<div>
+			<div id="portal-menu-bottom-container">
+				{% block menu %}
+					<div id="portal-menu-bottom-panel">
+						{%for k in menu %}
+							<div class="portal-menu-bottom-entry">
+								<a class="portal-menu-bottom-entry-head" href="/article/{{k.aid}}">{{k.name}}</a>
+								<div class="portal-bottom-sub-menu">
+									{% for s in k.subElements %}
+										<div><a href="/article/{{s.aid}}">{{s.name}}</a></div>
+									{% endfor %}
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				{% endblock menu %}
+			</div>
+		</div>
+		<header id="main-footer">
+			2015 SZH - Slovenský zväz hádzanej
+		</header>
+	</div>
+</body>
+<script>
+	$(function() {
+		$('.portal-club-logo').click(function () {
+			window.open($(this).data('url'), '_blank');
+		});
+		$('#portal-menu-panel-container').removeClass('mobile-visible');
+		var mainMenuHidden = true;
+		$('.toogle-menu').click(function (e) {
+			if (mainMenuHidden) {
+				$('#portal-menu-panel-container').addClass('mobile-visible');
+				mainMenuHidden = false;
+			} else {
+				$('#portal-menu-panel-container').removeClass('mobile-visible');
+				mainMenuHidden = true;
+			}
+			e.stopPropagation();
+			return false;
+		});
+		$('body').click(function () {
+			$('#portal-menu-panel-container').removeClass('mobile-visible');
+			mainMenuHidden = true;
+		});
+		$('.x-portal-widget-showcase-view').each(function() {
+			$(this).bind('showcase-next', function() {
+				var idx = $(this).data('showcase-current') || 0;
+
+				$(this).find('article').eq(idx).fadeOut();
+
+				if (idx == $(this).find('article').length - 1) {
+					idx = 0;
+				} else {
+					++idx;
+				}
+
+				$(this).find('article').eq(idx).fadeIn();
+
+				$(this).data('showcase-current', idx);
+
+				var navigationEl = $(this).next();
+				navigationEl.find('a.item').removeClass('active');
+				navigationEl.find('a.item').eq(idx).addClass('active');
+
+				setTimeout(function() {
+					$('.x-portal-widget-showcase-view').triggerHandler('showcase-next');
+				}, 4000);
+			});
+
+		}).triggerHandler('showcase-next');
+		$('.x-portal-widget-showcase-navigation a.prev').click(function(e) {
+			var showcaseEl = $(this).parent().prev();
+			var navigationEl = $(this).parent();
+			var idx = showcaseEl.data('showcase-current') || 0;
+			showcaseEl.find('article').eq(idx).fadeOut();
+			idx = idx - 1;
+			if (idx < 0) {
+				idx = $('.x-portal-widget-showcase-view article').size()-1;
+			}
+			showcaseEl.find('article').eq(idx).fadeIn();
+			showcaseEl.data('showcase-current', idx);
+			navigationEl.find('a.item').removeClass('active');
+			navigationEl.find('a.item').eq(idx).addClass('active');
+			e.stopPropagation();
+			return false;
+		});
+		$('.x-portal-widget-showcase-navigation a.item').click(function(e) {
+			var showcaseEl = $(this).parents('.x-portal-widget-showcase-navigation').prev();
+			var navigationEl = $(this).parents('.x-portal-widget-showcase-navigation');
+			var idx = showcaseEl.data('showcase-current') || 0;
+			showcaseEl.find('article').eq(idx).fadeOut();
+			idx = $(this).index();
+			showcaseEl.find('article').eq(idx).fadeIn();
+			showcaseEl.data('showcase-current', idx);
+			navigationEl.find('a.item').removeClass('active');
+			navigationEl.find('a.item').eq(idx).addClass('active');
+			e.stopPropagation();
+			return false;
+		});
+		$('.x-portal-widget-showcase-navigation a.next').click(function(e) {
+			var showcaseEl = $(this).parent().prev();
+			var navigationEl = $(this).parent();
+			var idx = showcaseEl.data('showcase-current') || 0;
+			showcaseEl.find('article').eq(idx).fadeOut();
+			idx = (idx+1) % $('.x-portal-widget-showcase-view article').size();
+			showcaseEl.data('showcase-current', idx);
+			showcaseEl.find('article').eq(idx).fadeIn();
+			navigationEl.find('a.item').removeClass('active');
+			navigationEl.find('a.item').eq(idx).addClass('active');
+			e.stopPropagation();
+			return false;
+		});
+
+		$('.x-portal-widget-gallery').each(function(index) {
+
+			$(this).find('.x-portal-widget-gallery-viewer-window-images').append(
+				$(this).find('.x-portal-widget-gallery-thm > img').clone()
+			);
+
+			$(this).bind('gallery-next', function(e, idx) {
+				
+			});
+
+			$(this).bind('gallery-show', function(e, idx) {
+				$(this).find('.x-portal-widget-gallery-viewer').css('display', 'table-cell');
+				$(this).data('gallery-current', idx);
+
+				$(this).find('.x-portal-widget-gallery-viewer-window-images > img').eq(idx).fadeIn();
+			});
+
+			$(this).bind('gallery-next', function(e) {
+				var idx = $(this).data('gallery-current');
+
+				$(this).find('.x-portal-widget-gallery-viewer-window-images > img').eq(idx).fadeOut();
+
+				if (idx == $(this).find('.x-portal-widget-gallery-viewer-window-images > img').length - 1) {
+					idx = 0;
+				} else {
+					++idx;
+				}
+
+				$(this).find('.x-portal-widget-gallery-viewer-window-images > img').eq(idx).fadeIn();
+
+				$(this).data('gallery-current', idx);
+			});
+
+			$(this).bind('gallery-prev', function(e) {
+				var idx = $(this).data('gallery-current');
+
+				$(this).find('.x-portal-widget-gallery-viewer-window-images > img').eq(idx).fadeOut();
+
+				if (idx == 0) {
+					idx = $(this).find('.x-portal-widget-gallery-viewer-window-images > img').length - 1;
+				} else {
+					--idx;
+				}
+
+				$(this).find('.x-portal-widget-gallery-viewer-window-images > img').eq(idx).fadeIn();
+
+				$(this).data('gallery-current', idx);
+			});
+
+			$(this).bind('gallery-close', function(e, idx) {
+				var idx = $(this).data('gallery-current');
+
+				$(this).find('.x-portal-widget-gallery-viewer-window-images > img').eq(idx).hide();
+				$(this).find('.x-portal-widget-gallery-viewer').fadeOut();
+			});
+
+			$(this).find('.x-portal-widget-gallery-close-btn').on('click', function() {
+				$(this).closest('.x-portal-widget-gallery').triggerHandler('gallery-close');
+			});
+
+			$(this).find('.x-portal-widget-gallery-next-btn').on('click', function() {
+				$(this).closest('.x-portal-widget-gallery').triggerHandler('gallery-next');
+			});
+
+			$(this).find('.x-portal-widget-gallery-prev-btn').on('click', function() {
+				$(this).closest('.x-portal-widget-gallery').triggerHandler('gallery-prev');
+			});
+
+			$(this).find('.x-portal-widget-gallery-thm > img').each(function(idx){
+				$(this).on('click', function(evt) {
+					$(this).closest('.x-portal-widget-gallery').triggerHandler('gallery-show', [idx]);
+				});
+			});
+		});
+
+		$('.x-portal-competition-results').bind('competition-results-show', function() {
+			var cid = $(this).find('.x-portal-competition-selector').val();
+			var that = this;
+
+			if (cid) {
+				$.get('/competition/results/'+cid, function(data) {
+					
+					data.sort(function(a,b) {
+						if (b.points - a.points === 0) {
+							if (a.matches - b.matches === 0) {
+								return b.score - a.score;
+							} else {
+								return a.matches - b.matches;
+							}
+
+						} else {
+							return b.points - a.points;
+						}
+					});
+
+					var table = $(that).find('table');
+
+					table.empty();
+
+					var counter = 0;
+					for (var i in data) {
+
+						var e = $('<tr><td style="text-align:right; padding-right: 5px;">'+ (++counter) +'</td><td style="font-weight: bold;">'+ data[i].name +'</td><td style="text-align: right;">'+data[i].matches+'z</td><td style="text-align: right;">'+data[i].points+'b</td><tr>');
+
+						table.append(e);
+					}
+					updateMainContentHeight();
+				});
+			}
+		});
+
+		$('.x-portal-competition-results').find('.x-portal-competition-selector').on('change', function() {
+			$(this).closest('.x-portal-competition-results').trigger('competition-results-show');
+	 	});
+
+
+		$.get('/competition/list', function(data) {
+			data.sort(function(a,b) {
+				if (a.lvl === b.lvl) {
+					return a.name.localeCompare(b.name);
+				} else {
+					return a.lvl - b.lvl;
+				}
+			});
+
+			$('.x-portal-competition-results').find('.x-portal-competition-selector').empty();
+			for (var i in data) {
+				$('.x-portal-competition-results').find('.x-portal-competition-selector').append('<option value="'+data[i].id+'">'+ data[i].name +'</option>');;
+			}
+			$('.x-portal-competition-results').find('.x-portal-competition-selector').trigger('change');
+		});
+
+		$('.portal-side-panel.partneri').each(function() {
+			$(this).bind('showcase-next', function() {
+				var idx = $(this).data('showcase-current') || 0;
+
+				$(this).find('article').eq(idx).fadeOut();
+
+				if (idx == $(this).find('article').length - 1) {
+					idx = 0;
+				} else {
+					++idx;
+				}
+
+				$(this).find('article').eq(idx).fadeIn();
+
+				$(this).data('showcase-current', idx);
+
+				setTimeout(function() {
+					$('.portal-side-panel.partneri').triggerHandler('showcase-next');
+				}, 3000);
+			});
+		}).triggerHandler('showcase-next');
+		updateMainContentHeight();
+		$(window).resize(updateMainContentHeight);
+
+		$('.portal-side-panel-logos').each(function() {
+			$(this).bind('showcase-next', function() {
+				var idx = $(this).data('showcase-current') || 0;
+
+				$(this).find('.item').eq(idx).fadeOut();
+
+				if (idx == $(this).find('.item').length - 1) {
+					idx = 0;
+				} else {
+					++idx;
+				}
+
+				$(this).find('.item').eq(idx).fadeIn();
+
+				$(this).data('showcase-current', idx);
+
+				setTimeout(function() {
+					$('.portal-side-panel-logos').triggerHandler('showcase-next');
+				}, 3000);
+			});
+		}).triggerHandler('showcase-next');
+		updateMainContentHeight();
+		$(window).resize(updateMainContentHeight);
+	});
+
+	function updateMainContentHeight() {
+		if (parseInt($(window).width()) <= 510) {
+			$('#portal-main-content').css('min-height', '0px');
+		} else {
+			$('#portal-main-content').css('min-height', parseInt($('#portal-side-content').height()) + 20);
+		}
+		
+	}
+	$('.x-portal-widget-category-prev-btn').click(function () {
+		updateCategoryNextPrev(-1, 'category');
+	});
+	$('.x-portal-widget-category-next-btn').click(function () {
+		updateCategoryNextPrev(1, 'category');
+	});
+	$('.x-portal-widget-overview-prev-btn').click(function () {
+		updateCategoryNextPrev(-1, 'overview');
+	});
+	$('.x-portal-widget-overview-next-btn').click(function () {
+		updateCategoryNextPrev(1, 'overview');
+	});
+
+	function updateCategoryNextPrev(step, type) {
+		var pathParts = window.location.pathname.split('/');
+		if (window.location.pathname && window.location.pathname.indexOf('article') > -1) {
+			var currPage = 0;
+			if (pathParts && pathParts.length > 3) {
+				currPage = parseInt(pathParts[3]);
+			}
+			currPage = currPage + step;
+			if (currPage < 0) {
+				currPage = 0;
+			}
+			var nextpage = parseInt($('.x-portal-widget-' + type + '-navigation').data('nextpage'));
+			if (currPage >= nextpage) {
+				currPage = nextpage;
+			}
+			pathParts[3] = currPage;
+			window.location.pathname = pathParts.join('/');
+		} else {
+			var currPage = 0;
+			if (pathParts && pathParts.length > 1 && pathParts[1]) {
+				currPage = parseInt(pathParts[1]);
+			}
+			currPage = currPage + step;
+			if (currPage < 0) {
+				currPage = 0;
+			}
+			var nextpage = parseInt($('.x-portal-widget-' + type + '-navigation').data('nextpage'));
+			if (currPage >= nextpage) {
+				currPage = nextpage;
+			}
+			pathParts[1] = currPage;
+			window.location.pathname = pathParts.join('/');
+		}
+	}
+</script>
+</html>
